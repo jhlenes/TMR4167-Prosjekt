@@ -52,18 +52,18 @@ geometri = [rorData; iprofData];
 
 
 % Leser inn antall knutepunkter
-npunkt = fscanf(filID,'%i',[1 1]);
+nPunkt = fscanf(filID,'%i',[1 1]);
 
 % Leser inn data om knutepunkter
 % Nodenummer tilsvarer radnummer i "punkt-variabelen"
 %   kol 1: X-koordinat
 %   kol 2: Y-koordinat
 %   kol 3: Grensebetingelse. fri rotasjon=0 og fast innspent=1
-punkt = fscanf(filID,'%f %f %i',[3 npunkt])';
+punkt = fscanf(filID,'%f %f %i',[3 nPunkt])';
 
 
 % Leser inn antall elementer
-nelem = fscanf(filID,'%i',[1 1]);
+nElem = fscanf(filID,'%i',[1 1]);
 
 % Leser inn data om elementer: Konnektivitet og materialdata.
 % Elementnummer tilsvarer radnummer i "elem-variabelen"
@@ -71,11 +71,11 @@ nelem = fscanf(filID,'%i',[1 1]);
 %   kol 2: Knutepunktnummer for lokal ende 2
 %   kol 3: MaterialID.
 %   kol 4: GeometriID.
-elem = fscanf(filID,'%i %i %i %i',[4 nelem])';
+elem = fscanf(filID,'%i %i %i %i',[4 nElem])';
 
 
 % Leser inn antall laster 
-nlast = fscanf(filID,'%i',[1 1]);
+nLast = fscanf(filID,'%i',[1 1]);
 
 % Les inn data om laster
 
@@ -88,7 +88,7 @@ nlast = fscanf(filID,'%i',[1 1]);
 %   kol 4: Hvis 1 så 'q_topp' ellers 0
 %   kol 5: Hvis 2 så 'F' ellers 0
 %   kol 6: Hvis 2 så 'avstand' ellers
-last = fscanf(filID,'%i %i %f %f %f %f',[6 nlast])';
+last = fscanf(filID,'%i %i %f %f %f %f',[6 nLast])';
 
 % LUKKER INPUT-FILEN
 fclose(filID);

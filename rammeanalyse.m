@@ -3,16 +3,16 @@ clear all
 
 
 % -----Leser input-data-----
-[npunkt punkt nelem elem nlast last] = lesinput();
+[matData, geometri, punkt, elem, last] = lesinput();
 
 
 % -----Regner lengder til elementene-----
-elementlengder=lengder(punkt,elem,nelem)
+elementlengder = lengder(punkt, elem);
 
 
 % ------Fastinnspenningsmomentene------
-% Lag funksjon selv
-fim=moment(npunkt,punkt,nelem,elem,nlast,last,elementlengder);
+% Lag funksjon selv: DONE!
+fim = moment(punkt, elem, last, elementlengder);
 
 
 % ------Setter opp lastvektor-------
