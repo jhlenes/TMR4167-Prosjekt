@@ -1,50 +1,63 @@
-% Sletter alle variabler
-clear all
-
+clc         % rydder kommandovinduet
+clear all   % Sletter alle variabler
 
 % -----Leser input-data-----
-[matData, geometri, punkt, elem, last] = lesinput();
+[matData, ror, iprof, punkt, elem, last] = lesinput('input.txt');
+
+
+% Regn ut treghetsmomenter for rørtverrsnitt
+rorData = treghetsmomentRor(ror);
+% Regn ut treghetsmoment for I-profiler
+iprofData = treghetsmomentIprof(iprof);
+% Samle data fra rørtverrsnitt og I-profil i 'geometri'. Format:
+% [GeometriID, Treghetsmoment, y_global;...]
+geometri = [rorData; iprofData];
 
 
 % -----Regner lengder til elementene-----
+% ElementID tilsvarer indeks i 'elementlengder'.
 elementlengder = lengder(punkt, elem);
 
 
+% -----Regner stivhet til alle elementer-----
+% ElementID tilsvarer indeks i 'stivheter'.
+% Stivhet = E*I/L
+stivheter = elementstivhet(matData, geometri, elem, elementlengder);
+
+
 % ------Fastinnspenningsmomentene------
-% Lag funksjon selv: DONE!
-fim = moment(punkt, elem, last, elementlengder);
+% ElementID tilsvarer rad i 'fim'.
+% Format 'fim': [m1, m2]
+fim = fastinnspenningsmoment(punkt, elem, last, elementlengder);
 
 
 % ------Setter opp lastvektor-------
-% Lag funksjon selv
-b=lastvektor(fim,npunkt,punkt,nelem,elem);
+% PunktID tilsvarer indeks i 'R'.
+R = lastvektor(fim, punkt, elem);
 
 
 % ------Setter opp systemstivhetsmatrisen-------
-% Lag funksjon selv
-K=stivhet(nelem,elem,elementlengder,npunkt);
+K = stivhetsmatrise(stivheter, elem, punkt);
 
 
-% ------Innfoerer randbetingelser-------
-% Lag funksjon selv
-[Kn Bn] = bc(npunkt, punkt, K, b);
+% ------Innfører randbetingelser-------
+[Kn, Rn] = randbetingelser(punkt, K, R);
      
 
 % -----Løser ligningssytemet -------
-% Lag funksjon selv
-rot = Kn\Bn;
+rot = Kn\Rn;
 
 
 % -----Finner endemoment for hvert element -------
 % Lag funksjon selv
-endemoment=endeM(npunkt,punkt,nelem,elem,elementlengder,rot,fim);
+%endemoment = endeM(npunkt,punkt,nelem,elem,elementlengder,rot,fim);
 
 
 % ----Skriver ut hva rotasjonen ble i de forskjellige nodene-------
-disp('Rotasjonane i de ulike punkta:')
-rot
+disp('Rotasjonene i de ulike punktene:')
+disp(rot);
 
 
 % -----Skriver ut hva momentene ble for de forskjellige elementene-------
 disp('Elementvis endemoment:')
-endemoment
+%endemoment

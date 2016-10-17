@@ -1,16 +1,15 @@
 function iprofData = treghetsmomentIprof(iprof)
     % Denne funksjonen beregner treghetsmomentet for I-profiler.
     % Parameter: iprof - matrise med data for et I-profil i hver
-    %               kolonne på formen [ID, b_topp, t_topp, l_steg, t_steg, b_bunn, t_bunn]
+    %               rad på formen [ID, b_topp, t_topp, l_steg, t_steg, b_bunn, t_bunn]
     % Returnerer: iprofData - matrise med data for et I-profil i hver
-    %               kolonne på formen [ID, treghetsmoment, yMaks]
+    %               rad på formen [ID, treghetsmoment, yMaks]
 
-    [n_iprof, ~] = size(iprof); % antall treghetsmoment å beregne
-    
-    iprofData = zeros(n_iprof, 3); % preallokering
+    [n_iprof, ~] = size(iprof);     % antall treghetsmoment å beregne
+    iprofData = zeros(n_iprof, 3);  % preallokering
     
     % For hver av de ulike I-profilene, beregn treghetsmoment og lengste
-    % avstand fra nøytralakse, y_maks.
+    % avstand fra nøytralakse, yMaks.
     for i=1:n_iprof
        geomID = iprof(i,1);
        
@@ -21,14 +20,14 @@ function iprofData = treghetsmomentIprof(iprof)
        b_bunn = iprof(i,6);
        t_bunn = iprof(i,7);
        
-       [I, y_maks] = treghetsmoment(b_topp, t_topp, l_steg, t_steg, b_bunn, t_bunn);
+       [I, yMaks] = treghetsmoment(b_topp, t_topp, l_steg, t_steg, b_bunn, t_bunn);
        
-       iprofData(i, :) = [geomID, I, y_maks];     
+       iprofData(i, :) = [geomID, I, yMaks];     
     end
 end
 
 function [I, y_maks] = treghetsmoment(b_topp, t_topp, l_steg, t_steg, b_bunn, t_bunn)
-    %Regner ut treghetsmoment for et I-profil
+    %Regner ut treghetsmoment for et I-profil med gitte mål.
     
     % Arealer av toppflens, steg og bunnflens.
     a_topp = b_topp * t_topp;
@@ -59,6 +58,8 @@ function [I, y_maks] = treghetsmoment(b_topp, t_topp, l_steg, t_steg, b_bunn, t_
     
     % Treghetsmoment er gitt av steiners teorem: I = sum(I_i+A_i*d_i^2)
     I = I_topp+a_topp*d_topp^2 + I_steg+a_steg*d_steg^2 + I_bunn+a_bunn*d_bunn^2;
+    
+    %I = I * 10^(-12);   % Konverterer fra mm^4 -> m^4
     
     
     % Finner yMaks for beregning av bøyespenninger
