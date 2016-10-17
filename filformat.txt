@@ -1,0 +1,30 @@
+Antall_materialer
+MaterialId E-modul Flytespenning
+MaterialId E-modul Flytespenning
+...
+Antall_rørtverrsnitt
+% Diameter og Tykkelse oppgis i mm.
+GeometriID Diameter Tykkelse
+GeometriID Diameter Tykkelse
+...
+Antall_I-profiler
+% Alle lengder oppgis i mm.
+GeometriID Toppflens_bredde Toppflens_tykkelse Steg_lengde Steg_tykkelse Bunnflens_bredde Bunnflens_tykkelse
+GeometriID Toppflens_bredde Toppflens_tykkelse Steg_lengde Steg_tykkelse Bunnflens_bredde Bunnflens_tykkelse
+...
+Antall_punkt
+% Indeks angir PunktID.
+X Y Grensebetingelse(fri rotasjon=0, fast innspenning=1, ledd=2)
+X Y Grensebetingelse(fri rotasjon=0, fast innspenning=1, ledd=2)
+...
+Antall_element
+% Indeks angir ElementID.
+PunktID_1 PunktID_2 MaterialID GeometriID
+PunktID_1 PunktID_2 MaterialID GeometriID
+...
+Antall_laster
+% For fordelte laster settes F og avstand_1 lik 0, for punktlaster settes
+% q1 og q2 lik 0.
+ElementID Load_case(fordelt last=1, punktlast=2) q1 q2 F avstand_1
+ElementID Load_case(fordelt last=1, punktlast=2) q1 q2 F avstand_1
+...
