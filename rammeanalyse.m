@@ -50,7 +50,7 @@ rot = Kn\Rn;
 
 % -----Finner endemoment for hvert element -------
 % Lag funksjon selv
-%endemoment = endeM(npunkt,punkt,nelem,elem,elementlengder,rot,fim);
+endemoment = endemomenter(stivheter, rot, fim, elem);
 
 
 % ----Skriver ut hva rotasjonen ble i de forskjellige nodene-------
@@ -60,4 +60,4 @@ disp(rot);
 
 % -----Skriver ut hva momentene ble for de forskjellige elementene-------
 disp('Elementvis endemoment:')
-%endemoment
+disp(endemoment);
