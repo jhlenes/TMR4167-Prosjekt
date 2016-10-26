@@ -17,6 +17,7 @@ function rorData = treghetsmomentRor(ror)
         
         I = treghetsmoment(D, t);
         r = D/2;                    % Trengs for å beregne bøyespenning
+        r = r * 10^(-3);            % Konvertere fra mm -> m
         
         rorData(i, :) = [geomID I r];   
     end
@@ -25,5 +26,5 @@ end
 function I = treghetsmoment(D, t)
     % Formel: I = pi/64 * (ytre_diameter^4 - indre_diameter^4)
     I = pi/64 * ( D^4 - (D-2*t)^4 );
-    %I = I * 10^(-12);               % Konvertere fra mm^4 -> m^4
+    I = I * 10^(-12);               % Konvertere fra mm^4 -> m^4
 end

@@ -59,9 +59,11 @@ function [I, y_maks] = treghetsmoment(b_topp, t_topp, l_steg, t_steg, b_bunn, t_
     % Treghetsmoment er gitt av steiners teorem: I = sum(I_i+A_i*d_i^2)
     I = I_topp+a_topp*d_topp^2 + I_steg+a_steg*d_steg^2 + I_bunn+a_bunn*d_bunn^2;
     
-    %I = I * 10^(-12);   % Konverterer fra mm^4 -> m^4
+    I = I * 10^(-12);   % Konverterer fra mm^4 -> m^4
     
     
     % Finner yMaks for beregning av bøyespenninger
     y_maks = max( [t_topp+l_steg+t_bunn - y_c, y_c]);
+    
+    y_maks = y_maks * 10^(-3);  % Konverter fra mm -> m
 end

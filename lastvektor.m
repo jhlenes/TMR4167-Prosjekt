@@ -1,4 +1,4 @@
-function b = lastvektor(fim, punkt, elem)
+function R = lastvektor(fim, punkt, elem)
     % Denne funksjonen regner ut lastvektoren for konstruksjonen. Vi har
     % ingen konsentrerte knutepunktmomenter, slik at lastvektoren består kun
     % av fastinnspenningskrefter.
@@ -6,7 +6,7 @@ function b = lastvektor(fim, punkt, elem)
     % Lastvektoren har like mange elementer som det er punkter i
     % konstruksjonen
     [nPunkt, ~] = size(punkt);
-    b = zeros(nPunkt, 1);
+    R = zeros(nPunkt, 1);
     
     [nElem, ~] = size(elem);
     for i = 1:nElem     % Iterer over hvert element
@@ -15,7 +15,7 @@ function b = lastvektor(fim, punkt, elem)
        
        % Fastinnspenningsmomentet med motsatt fortegn legges til verdien
        % i begge knutepunkter.
-       b(p1) = b(p1) - fim(i, 1);   
-       b(p2) = b(p2) - fim(i, 2);
+       R(p1) = R(p1) - fim(i, 1);   
+       R(p2) = R(p2) - fim(i, 2);
     end
 end
