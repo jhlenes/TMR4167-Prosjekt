@@ -83,7 +83,14 @@ fprintf('\n\n');
 fprintf('Bøyespenninger for hvert element [MPa]:\n\n');
 fprintf('%12s%10s      %10s      %10s\n', ' ', 'Ende 1', 'Midten', 'Ende 2');
 for elemID = 1:nElem
+    
     fprintf('Element %2i: %10.1f      %10.1f      %10.1f\n', elemID, ...
         boyespenning(elemID, 1)*1e-06, boyespenning(elemID,2)*1e-06, boyespenning(elemID, 3)*1e-06);    
 end
+
+% Maks bøyespenning
+
+[~, i] = max(max(abs(boyespenning)));
+[maks, maksElem] = max(abs(boyespenning(:, i)));
+fprintf('\n\nMaks bøyespenning: %.1f i element nummer: %i\n', boyespenning(maksElem, i)*1e-06, maksElem);
 
