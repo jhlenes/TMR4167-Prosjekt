@@ -5,8 +5,20 @@ function midtmoment = midtmoment(last, endemoment, elementlengder, elem)
     [nElem, ~] = size(elem);
     midtmoment = zeros(nElem, 1);   % Midtmoment lagres for hvert element
     
-    [nLast, ~] = size(last);
+    % Regn ut momentet på midten for alle elementer som ikke har noen last
+    for elemID = 1:nElem    % Iterer over hvert element  
+        if midtmoment(elemID) == 0  % Hvis ingen last på dette elementet
+            
+            M1 = endemoment(elemID, 1); % Endemoment ende 1
+            M2 = endemoment(elemID, 2); % Endemoment ende 2
+            
+            % Moment på midten pga endemomenter er eneste bidrag
+            midtmoment(elemID) = M1/2 - M2/2;
+        end
+    end    
     
+    % Hvis elementet er påsatt en last vil beregningene ovenfor overskrives
+    [nLast, ~] = size(last);
     for i = 1:nLast     % Iterer over hver last
         
         elemID = last(i, 1);        % ElementID
@@ -46,6 +58,8 @@ function midtmoment = midtmoment(last, endemoment, elementlengder, elem)
         end
        
     end
+    
+    
     
 end
 
