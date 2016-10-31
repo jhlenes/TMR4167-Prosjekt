@@ -49,7 +49,7 @@ rot = Kn\Rn;
 
 
 % -----Finner endemoment for hvert element -------
-endemoment = endemomenter(stivheter, rot, fim, elem);
+[endemoment, moment_rotasjon] = endemomenter(stivheter, rot, fim, elem);
 
 
 % -----Finner moment under punktlaster, eller på midten av bjelker med fordelte laster-----
@@ -60,10 +60,24 @@ midtmoment = midtmoment(last, endemoment, elementlengder, elem);
 boyespenning = boyespenning(endemoment, midtmoment, elem, geometri);
 
 
+skjaerkraft = skjaerkraft(elem, moment_rotasjon, elementlengder, last);
+
+
 % ----Skriver ut hva rotasjonen ble i de forskjellige nodene-------
 fprintf('Rotasjonene i de ulike punktene i grader:\n\n')
 for i = 1:length(rot)
     fprintf('Punkt %2i: %10.4f\n', i, rot(i)*180/pi);
+end
+fprintf('\n\n');
+
+
+% -----Skriver ut hva skjærkreftene ble for de forskjellige elementene-------
+fprintf('Skjærkraft for hvert element [kN] (positiv retning med urviser):\n\n');
+fprintf('%12s%10s      %10s\n', ' ', 'Ende 1', 'Ende 2');
+[nElem, ~] = size(elem);
+for elemID = 1:nElem
+   fprintf('Element %2i: %10.1f      %10.1f\n', elemID, ...
+       skjaerkraft(elemID, 1)*1e-03, skjaerkraft(elemID, 2)*1e-03); 
 end
 fprintf('\n\n');
 
