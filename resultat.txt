@@ -12,6 +12,8 @@ Punkt  9:     0.0000
 Punkt 10:    -0.1125
 Punkt 11:    -0.0591
 Punkt 12:     0.0241
+
+
 Skjærkraft for hvert element [kN] (positiv retning med urviser):
 
                 Ende 1          Ende 2

@@ -69,7 +69,7 @@ fprintf(fid, 'Rotasjonene i de ulike punktene i grader:\n\n');
 for i = 1:length(rot)
     fprintf(fid, 'Punkt %2i: %10.4f\n', i, rot(i)*180/pi);
 end
-fprintf('\n\n');
+fprintf(fid, '\n\n');
 
 
 % -----Skriver ut hva skjærkreftene ble for de forskjellige elementene-------
@@ -102,3 +102,5 @@ for elemID = 1:nElem
     fprintf(fid, 'Element %2i: %10.1f      %10.1f      %10.1f\n', elemID, ...
         boyespenning(elemID, 1)*1e-06, boyespenning(elemID,2)*1e-06, boyespenning(elemID, 3)*1e-06);    
 end
+
+fprintf('Se resultat.txt');
