@@ -62,49 +62,43 @@ boyespenning = boyespenning(endemoment, midtmoment, elem, geometri);
 
 skjaerkraft = skjaerkraft(elem, moment_rotasjon, elementlengder, last);
 
+fid = fopen('resultat.txt', 'w');
 
 % ----Skriver ut hva rotasjonen ble i de forskjellige nodene-------
-fprintf('Rotasjonene i de ulike punktene i grader:\n\n')
+fprintf(fid, 'Rotasjonene i de ulike punktene i grader:\n\n');
 for i = 1:length(rot)
-    fprintf('Punkt %2i: %10.4f\n', i, rot(i)*180/pi);
+    fprintf(fid, 'Punkt %2i: %10.4f\n', i, rot(i)*180/pi);
 end
 fprintf('\n\n');
 
 
 % -----Skriver ut hva skjærkreftene ble for de forskjellige elementene-------
-fprintf('Skjærkraft for hvert element [kN] (positiv retning med urviser):\n\n');
-fprintf('%12s%10s      %10s\n', ' ', 'Ende 1', 'Ende 2');
+fprintf(fid, 'Skjærkraft for hvert element [kN] (positiv retning med urviser):\n\n');
+fprintf(fid, '%12s%10s      %10s\n', ' ', 'Ende 1', 'Ende 2');
 [nElem, ~] = size(elem);
 for elemID = 1:nElem
-   fprintf('Element %2i: %10.1f      %10.1f\n', elemID, ...
+   fprintf(fid, 'Element %2i: %10.1f      %10.1f\n', elemID, ...
        skjaerkraft(elemID, 1)*1e-03, skjaerkraft(elemID, 2)*1e-03); 
 end
-fprintf('\n\n');
+fprintf(fid, '\n\n');
 
 
 % -----Skriver ut hva momentene ble for de forskjellige elementene-------
-fprintf('Momenter for hvert element [kNm]:\n\n');
-fprintf('%12s%10s      %10s      %10s\n', ' ', 'Ende 1', 'Midten', 'Ende 2');
+fprintf(fid, 'Momenter for hvert element [kNm]:\n\n');
+fprintf(fid, '%12s%10s      %10s      %10s\n', ' ', 'Ende 1', 'Midten', 'Ende 2');
 [nElem, ~] = size(elem);
 for elemID = 1:nElem
-   fprintf('Element %2i: %10.1f      %10.1f      %10.1f\n', elemID, ...
+   fprintf(fid, 'Element %2i: %10.1f      %10.1f      %10.1f\n', elemID, ...
        endemoment(elemID, 1)*1e-03, midtmoment(elemID)*1e-03, endemoment(elemID, 2)*1e-03); 
 end
-fprintf('\n\n');
+fprintf(fid, '\n\n');
 
 
 %-----Skriver ut bøyespenninger
-fprintf('Bøyespenninger for hvert element [MPa]:\n\n');
-fprintf('%12s%10s      %10s      %10s\n', ' ', 'Ende 1', 'Midten', 'Ende 2');
+fprintf(fid, 'Bøyespenninger for hvert element [MPa]:\n\n');
+fprintf(fid, '%12s%10s      %10s      %10s\n', ' ', 'Ende 1', 'Midten', 'Ende 2');
 for elemID = 1:nElem
     
-    fprintf('Element %2i: %10.1f      %10.1f      %10.1f\n', elemID, ...
+    fprintf(fid, 'Element %2i: %10.1f      %10.1f      %10.1f\n', elemID, ...
         boyespenning(elemID, 1)*1e-06, boyespenning(elemID,2)*1e-06, boyespenning(elemID, 3)*1e-06);    
 end
-
-% Maks bøyespenning
-
-[~, i] = max(max(abs(boyespenning)));
-[maks, maksElem] = max(abs(boyespenning(:, i)));
-fprintf('\n\nMaks bøyespenning: %.1f i element nummer: %i\n', boyespenning(maksElem, i)*1e-06, maksElem);
-
