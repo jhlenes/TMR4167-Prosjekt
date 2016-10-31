@@ -14,8 +14,8 @@ GeometriID Toppflens_bredde Toppflens_tykkelse Steg_lengde Steg_tykkelse Bunnfle
 ...
 Antall_punkt
 % Indeks angir PunktID.
-X Y Grensebetingelse(fri rotasjon=0, fast innspenning=1, ledd=2)
-X Y Grensebetingelse(fri rotasjon=0, fast innspenning=1, ledd=2)
+X Y Grensebetingelse(fri rotasjon=0, fast innspenning=1)
+X Y Grensebetingelse(fri rotasjon=0, fast innspenning=1)
 ...
 Antall_element
 % Indeks angir ElementID.

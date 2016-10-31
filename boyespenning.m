@@ -1,4 +1,4 @@
-function boyespenning = boyespenning(endemoment, midtmoment, elem, geometri, matData)
+function boyespenning = boyespenning(endemoment, midtmoment, elem, geometri)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
     
@@ -7,10 +7,8 @@ function boyespenning = boyespenning(endemoment, midtmoment, elem, geometri, mat
     
     for elemID = 1:nElem
         
-        matID = elem(elemID, 3);    % Materialtype
         geomID = elem(elemID, 4);   % Geometritype
         
-        fy = matData(matID, 3);     % Flytespenning
         I = geometri(geomID, 2);    % Treghetsmoment
         y = geometri(geomID, 3);    % Maks avstand til nøytralakse
         

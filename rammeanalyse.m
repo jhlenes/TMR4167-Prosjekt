@@ -28,7 +28,7 @@ stivheter = elementstivhet(matData, geometri, elem, elementlengder);
 % ------Fastinnspenningsmomentene------
 % ElementID tilsvarer rad i 'fim'.
 % Format 'fim': [m1, m2]
-fim = fastinnspenningsmoment(punkt, elem, last, elementlengder);
+fim = fastinnspenningsmoment(elem, last, elementlengder);
 
 
 % ------Setter opp lastvektor-------
@@ -57,7 +57,7 @@ midtmoment = midtmoment(last, endemoment, elementlengder, elem);
 
 
 % -----Finner bøyespenninger i begge ender og under punktlast/på midten av hver bjelke-----
-boyespenning = boyespenning(endemoment, midtmoment, elem, geometri, matData);
+boyespenning = boyespenning(endemoment, midtmoment, elem, geometri);
 
 
 % ----Skriver ut hva rotasjonen ble i de forskjellige nodene-------
