@@ -100,11 +100,14 @@ fprintf(fid, '\n\n');
 
 % Skriver ut bøyespenninger
 fprintf(fid, 'Bøyespenninger for hvert element [MPa]:\n\n');
-fprintf(fid, '%12s%10s      %10s      %10s\n', ' ', 'Ende 1', 'Midten', 'Ende 2');
+fprintf(fid, '%12s%10s      %10s      %10s      %10s\n', ' ', 'Ende 1', 'Midten', 'Ende 2', '% av fy');
 for elemID = 1:nElem
+    matID = elem(elemID, 3);    % material
+    fy = matData(matID, 3);     % flytespenning
+    maksProsent = max(abs(boyespenning(elemID, :))) / fy * 100; % prosent av flytespenning
     
-    fprintf(fid, 'Element %2i: %10.1f      %10.1f      %10.1f\n', elemID, ...
-        boyespenning(elemID, 1)*1e-06, boyespenning(elemID,2)*1e-06, boyespenning(elemID, 3)*1e-06);    
+    fprintf(fid, 'Element %2i: %10.1f      %10.1f      %10.1f      %10.1f\n', elemID, ...
+        boyespenning(elemID, 1)*1e-06, boyespenning(elemID,2)*1e-06, boyespenning(elemID, 3)*1e-06, maksProsent);    
 end
 
 % Lukk filen

@@ -12,7 +12,7 @@ function skjaerkraft = skjaerkraft(elem, moment_rotasjon, elementlengder, last)
         skjaerkraft(elemID, :) = [Q_1, Q_1];
     end
 
-    % Regner ut Q0 for elementer med punktlast
+    % Regner ut Q0 for elementer laster
     [nLast, ~] = size(last);    % antall laster    
     for i = 1:nLast
         

@@ -56,19 +56,19 @@ Element 15:     -153.4           -67.9           -17.6
 
 Bøyespenninger for hvert element [MPa]:
 
-                Ende 1          Midten          Ende 2
-Element  1:      -86.4            44.7           138.8
-Element  2:      -69.2            59.3           216.5
-Element  3:     -185.4           141.6            25.6
-Element  4:     -103.7           -28.1           -47.5
-Element  5:      -78.7           151.6           206.9
-Element  6:     -121.6           175.3           215.5
-Element  7:       -8.2            -4.1            -0.0
-Element  8:       -4.5             3.0           -10.4
-Element  9:        9.9             2.1             5.7
-Element 10:        7.3             0.3             6.7
-Element 11:     -209.8           165.2           125.5
-Element 12:     -183.1           167.6           135.8
-Element 13:      -17.2             8.6           -34.4
-Element 14:      -43.4            -4.1           -35.2
-Element 15:      -14.4            -6.4            -1.7
+                Ende 1          Midten          Ende 2         % av fy
+Element  1:      -86.4            44.7           138.8            43.4
+Element  2:      -69.2            59.3           216.5            67.7
+Element  3:     -185.4           141.6            25.6            57.9
+Element  4:     -103.7           -28.1           -47.5            32.4
+Element  5:      -78.7           151.6           206.9            64.6
+Element  6:     -121.6           175.3           215.5            67.4
+Element  7:       -8.2            -4.1            -0.0             2.5
+Element  8:       -4.5             3.0           -10.4             3.3
+Element  9:        9.9             2.1             5.7             3.1
+Element 10:        7.3             0.3             6.7             2.3
+Element 11:     -209.8           165.2           125.5            65.6
+Element 12:     -183.1           167.6           135.8            57.2
+Element 13:      -17.2             8.6           -34.4            10.7
+Element 14:      -43.4            -4.1           -35.2            13.6
+Element 15:      -14.4            -6.4            -1.7             4.5
