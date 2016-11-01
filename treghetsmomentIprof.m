@@ -1,16 +1,17 @@
 function iprofData = treghetsmomentIprof(iprof)
-    % Denne funksjonen beregner treghetsmomentet for I-profiler.
+    % Denne funksjonen beregner treghetsmomentet for I-profiler, og største
+    % avstand fra nøytralakse.
     % Parameter: iprof - matrise med data for et I-profil i hver
     %               rad på formen [ID, b_topp, t_topp, l_steg, t_steg, b_bunn, t_bunn]
     % Returnerer: iprofData - matrise med data for et I-profil i hver
     %               rad på formen [ID, treghetsmoment, yMaks]
 
-    [n_iprof, ~] = size(iprof);     % antall treghetsmoment å beregne
-    iprofData = zeros(n_iprof, 3);  % preallokering
+    [nIprof, ~] = size(iprof);     % Antall treghetsmoment å beregne
+    iprofData = zeros(nIprof, 3);  % Preallokering
     
     % For hver av de ulike I-profilene, beregn treghetsmoment og lengste
-    % avstand fra nøytralakse, yMaks.
-    for i=1:n_iprof
+    % avstand fra nøytralakse.
+    for i = 1:nIprof
        geomID = iprof(i,1);
        
        b_topp = iprof(i,2);
@@ -27,7 +28,7 @@ function iprofData = treghetsmomentIprof(iprof)
 end
 
 function [I, y_maks] = treghetsmoment(b_topp, t_topp, l_steg, t_steg, b_bunn, t_bunn)
-    %Regner ut treghetsmoment for et I-profil med gitte mål.
+    % Regner ut treghetsmoment for et I-profil med gitte mål.
     
     % Arealer av toppflens, steg og bunnflens.
     a_topp = b_topp * t_topp;
@@ -62,7 +63,7 @@ function [I, y_maks] = treghetsmoment(b_topp, t_topp, l_steg, t_steg, b_bunn, t_
     I = I * 10^(-12);   % Konverterer fra mm^4 -> m^4
     
     
-    % Finner yMaks for beregning av bøyespenninger
+    % Finner lengste avstand fra nøytralakse
     y_maks = max( [t_topp+l_steg+t_bunn - y_c, y_c]);
     
     y_maks = y_maks * 10^(-3);  % Konverter fra mm -> m

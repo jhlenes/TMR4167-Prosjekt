@@ -1,23 +1,24 @@
 function rorData = treghetsmomentRor(ror)
-    % Denne funksjonen beregner treghetsmomentet for rørtverrsnitt.
+    % Denne funksjonen beregner treghetsmomentet for et rørtverrsnitt, og
+    % største avstand til nøytralakse.
     % Parameter: ror - matrise med data for et rørtverrsnitt i hver
     %               rad på formen [ID, diameter, tykkelse]
     % Returnerer: rorData - matrise med data for et rørtverrsnitt i hver
     %               rad på formen [ID, treghetsmoment, yMaks]
     
-    [nRor, ~] = size(ror);     % antall treghetsmoment å beregne
-    rorData = zeros(nRor, 3);  % preallokering
+    [nRor, ~] = size(ror);     % Antall treghetsmoment å beregne
+    rorData = zeros(nRor, 3);  % Preallokering
     
     % For hver av de ulike rørtverrsnittene, beregn treghetsmoment og lengste
-    % avstand fra nøytralakse, r.
+    % avstand fra nøytralakse.
     for i = 1:nRor    
         geomID = ror(i, 1);
-        D = ror(i, 2);
-        t = ror(i, 3);
+        D = ror(i, 2);      % Diameter
+        t = ror(i, 3);      % Tykkelse
         
         I = treghetsmoment(D, t);
-        r = D/2;                    % Trengs for å beregne bøyespenning
-        r = r * 10^(-3);            % Konvertere fra mm -> m
+        r = D/2;            % Lengste avstand fra nøytralakse er lik radius
+        r = r * 10^(-3);    % Konvertere fra mm -> m
         
         rorData(i, :) = [geomID I r];   
     end

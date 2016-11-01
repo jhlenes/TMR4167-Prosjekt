@@ -1,70 +1,74 @@
 clc         % rydder kommandovinduet
 clear all   % Sletter alle variabler
 
-% -----Leser input-data-----
+% ----- Leser input-data -----
 [matData, ror, iprof, punkt, elem, last] = lesinput('input_oppgave.txt');
 
 
-% Regn ut treghetsmomenter for rørtverrsnitt
+% ----- Beregner treghetsmomenter og avstander til nøytralakser -----
+% Regner ut treghetsmomenter for rørtverrsnitt
 rorData = treghetsmomentRor(ror);
-% Regn ut treghetsmoment for I-profiler
+% Regner ut treghetsmomenter for I-profiler
 iprofData = treghetsmomentIprof(iprof);
-% Samle data fra rørtverrsnitt og I-profil i 'geometri'. Format:
-% [GeometriID, Treghetsmoment, y_global;...]
+% Samle data fra rørtverrsnitt og I-profil i 'geometri'. Hver rad
+% representerer et tverrsnitt på formen [GeometriID, Treghetsmoment, y_maks]
 geometri = [rorData; iprofData];
 
 
-% -----Regner lengder til elementene-----
+% ----- Beregner lengder til elementene -----
 % ElementID tilsvarer indeks i 'elementlengder'.
 elementlengder = lengder(punkt, elem);
 
 
-% -----Regner stivhet til alle elementer-----
+% ----- Beregner stivheter (E*I/L) til alle elementer -----
 % ElementID tilsvarer indeks i 'stivheter'.
-% Stivhet = E*I/L
 stivheter = elementstivhet(matData, geometri, elem, elementlengder);
 
 
-% ------Fastinnspenningsmomentene------
+% ------ Beregner fastinnspenningsmomentene til alle elementer ------
 % ElementID tilsvarer rad i 'fim'.
-% Format 'fim': [m1, m2]
+% fim - matrise der hver rad er på formen [fastinnspeningsmoment_ende_1, fastinnspeningsmoment_ende_2]
 fim = fastinnspenningsmoment(elem, last, elementlengder);
 
 
-% ------Setter opp lastvektor-------
+% ------ Setter opp lastvektor -------
 % PunktID tilsvarer indeks i 'R'.
 R = lastvektor(fim, punkt, elem);
 
 
-% ------Setter opp systemstivhetsmatrisen-------
+% ------ Setter opp systemstivhetsmatrisen -------
 K = stivhetsmatrise(stivheter, elem, punkt);
 
 
-% ------Innfører randbetingelser-------
+% ------ Innfører randbetingelser på systemstivhetsmatrisen-------
 [Kn, Rn] = randbetingelser(punkt, K, R);
      
 
-% -----Løser ligningssytemet -------
+% ----- Løser ligningssytemet -------
 rot = Kn\Rn;
 
 
-% -----Finner endemoment for hvert element -------
+% ----- Finner endemoment for hvert element -------
 [endemoment, moment_rotasjon] = endemomenter(stivheter, rot, fim, elem);
 
 
-% -----Finner moment under punktlaster, eller på midten av bjelker med fordelte laster-----
+% ----- Finner moment under punktlaster, eller på midten av bjelker med fordelte laster -----
 midtmoment = midtmoment(last, endemoment, elementlengder, elem);
 
 
-% -----Finner bøyespenninger i begge ender og under punktlast/på midten av hver bjelke-----
+% ----- Finner bøyespenninger i begge ender og under punktlast/på midten av hver bjelke -----
 boyespenning = boyespenning(endemoment, midtmoment, elem, geometri);
 
 
 skjaerkraft = skjaerkraft(elem, moment_rotasjon, elementlengder, last);
 
+
+%----- Skriver ut resultat til 'resultat.txt' -----
+
+% Åpner filen
 fid = fopen('resultat.txt', 'w');
 
-% ----Skriver ut hva rotasjonen ble i de forskjellige nodene-------
+% Skriver ut hva rotasjonen ble i de forskjellige nodene
 fprintf(fid, 'Rotasjonene i de ulike punktene i grader:\n\n');
 for i = 1:length(rot)
     fprintf(fid, 'Punkt %2i: %10.4f\n', i, rot(i)*180/pi);
@@ -72,7 +76,7 @@ end
 fprintf(fid, '\n\n');
 
 
-% -----Skriver ut hva skjærkreftene ble for de forskjellige elementene-------
+% Skriver ut hva skjærkreftene ble for de forskjellige elementene
 fprintf(fid, 'Skjærkraft for hvert element [kN] (positiv retning med urviser):\n\n');
 fprintf(fid, '%12s%10s      %10s\n', ' ', 'Ende 1', 'Ende 2');
 [nElem, ~] = size(elem);
@@ -83,7 +87,7 @@ end
 fprintf(fid, '\n\n');
 
 
-% -----Skriver ut hva momentene ble for de forskjellige elementene-------
+% Skriver ut hva momentene ble for de forskjellige elementene
 fprintf(fid, 'Momenter for hvert element [kNm]:\n\n');
 fprintf(fid, '%12s%10s      %10s      %10s\n', ' ', 'Ende 1', 'Midten', 'Ende 2');
 [nElem, ~] = size(elem);
@@ -94,7 +98,7 @@ end
 fprintf(fid, '\n\n');
 
 
-%-----Skriver ut bøyespenninger
+% Skriver ut bøyespenninger
 fprintf(fid, 'Bøyespenninger for hvert element [MPa]:\n\n');
 fprintf(fid, '%12s%10s      %10s      %10s\n', ' ', 'Ende 1', 'Midten', 'Ende 2');
 for elemID = 1:nElem
@@ -103,4 +107,9 @@ for elemID = 1:nElem
         boyespenning(elemID, 1)*1e-06, boyespenning(elemID,2)*1e-06, boyespenning(elemID, 3)*1e-06);    
 end
 
-fprintf('Se resultat.txt');
+% Lukk filen
+fclose(fid);
+
+
+% Skriv til command window
+fprintf('Resultatet er lagret i ''resultat.txt''\n\n');

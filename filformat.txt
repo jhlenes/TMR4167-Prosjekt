@@ -1,24 +1,27 @@
 Antall_materialer
+% Linjenummer angir MaterialID
 MaterialId E-modul Flytespenning
 MaterialId E-modul Flytespenning
 ...
 Antall_rørtverrsnitt
 % Diameter og Tykkelse oppgis i mm.
+% Linjenummer angir GeometriID
 GeometriID Diameter Tykkelse
 GeometriID Diameter Tykkelse
 ...
 Antall_I-profiler
 % Alle lengder oppgis i mm.
+% Linjenummer angir GeometriID, fortsettelse fra rørtverrsnitt
 GeometriID Toppflens_bredde Toppflens_tykkelse Steg_lengde Steg_tykkelse Bunnflens_bredde Bunnflens_tykkelse
 GeometriID Toppflens_bredde Toppflens_tykkelse Steg_lengde Steg_tykkelse Bunnflens_bredde Bunnflens_tykkelse
 ...
 Antall_punkt
-% Indeks angir PunktID.
+% Linjenummer angir PunktID.
 X Y Grensebetingelse(fri rotasjon=0, fast innspenning=1)
 X Y Grensebetingelse(fri rotasjon=0, fast innspenning=1)
 ...
 Antall_element
-% Indeks angir ElementID.
+% Linjenummer angir ElementID.
 PunktID_1 PunktID_2 MaterialID GeometriID
 PunktID_1 PunktID_2 MaterialID GeometriID
 ...

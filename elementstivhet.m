@@ -1,10 +1,10 @@
 function stivheter = elementstivhet(matData, geometri, elem, elementlengder)
     % Denne funksjonen regner ut stivheten, EI/L, for alle elementer. 
     
-    [nElem, ~] = size(elem);
-    stivheter = zeros(nElem, 1);
+    [nElem, ~] = size(elem);        % antall elementer
+    stivheter = zeros(nElem, 1);    % preallokering
     for i = 1:nElem
-        matID = elem(i, 3);
+        matID = elem(i, 3);   
         E = matData(matID, 2);      % E-modul
         
         geomID = elem(i, 4);

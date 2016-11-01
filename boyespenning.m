@@ -1,9 +1,9 @@
 function boyespenning = boyespenning(endemoment, midtmoment, elem, geometri)
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
+    % Denne funksjonen beregner bøyespenningen i begge ender og under
+    % punktlast/på midten av elementet.
     
-    [nElem, ~] = size(elem);
-    boyespenning = zeros(nElem, 3); % Inneholder bøyespenning: [ende 1, midten/under punktlast, ende 2]
+    [nElem, ~] = size(elem);            % antall elementer
+    boyespenning = zeros(nElem, 3);     % preallokering
     
     for elemID = 1:nElem
         

@@ -2,23 +2,20 @@ function midtmoment = midtmoment(last, endemoment, elementlengder, elem)
     % Denne funksjonen regner ut momentet på midten av bjelker pålastet fordelte
     % laster, og under punktlasten for bjelker pålastet punktlaster.
 
-    [nElem, ~] = size(elem);
-    midtmoment = zeros(nElem, 1);   % Midtmoment lagres for hvert element
+    [nElem, ~] = size(elem);        % antall elementer
+    midtmoment = zeros(nElem, 1);   % preallokering
     
-    % Regn ut momentet på midten for alle elementer som ikke har noen last
-    for elemID = 1:nElem    % Iterer over hvert element  
-        if midtmoment(elemID) == 0  % Hvis ingen last på dette elementet
-            
-            M1 = endemoment(elemID, 1); % Endemoment ende 1
-            M2 = endemoment(elemID, 2); % Endemoment ende 2
-            
-            % Moment på midten pga endemomenter er eneste bidrag
-            midtmoment(elemID) = M1/2 - M2/2;
-        end
+    % Regn først ut momentet på midten for alle elementer pga endemomenter.
+    % Disse beregninene blir overskrevet hvis elementet er påsatt en last.
+    for elemID = 1:nElem         
+        M1 = endemoment(elemID, 1); % Endemoment ende 1
+        M2 = endemoment(elemID, 2); % Endemoment ende 2
+
+        % Moment på midten pga endemomenter er eneste bidrag
+        midtmoment(elemID) = M1/2 - M2/2;
     end    
     
-    % Hvis elementet er påsatt en last vil beregningene ovenfor overskrives
-    [nLast, ~] = size(last);
+    [nLast, ~] = size(last);    % antall laster
     for i = 1:nLast     % Iterer over hver last
         
         elemID = last(i, 1);        % ElementID
@@ -58,8 +55,5 @@ function midtmoment = midtmoment(last, endemoment, elementlengder, elem)
         end
        
     end
-    
-    
-    
+            
 end
-
