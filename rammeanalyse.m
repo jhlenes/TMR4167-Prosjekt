@@ -49,7 +49,7 @@ rot = Kn\Rn;
 
 
 % ----- Finner endemoment for hvert element -------
-[endemoment, moment_rotasjon] = endemomenter(stivheter, rot, fim, elem);
+endemoment = endemomenter(stivheter, rot, fim, elem);
 
 
 % ----- Finner moment under punktlaster, eller på midten av bjelker med fordelte laster -----
@@ -60,7 +60,7 @@ midtmoment = midtmoment(last, endemoment, elementlengder, elem);
 boyespenning = boyespenning(endemoment, midtmoment, elem, geometri);
 
 
-skjaerkraft = skjaerkraft(elem, moment_rotasjon, elementlengder, last);
+skjaerkraft = skjaerkraft(elem, endemoment, elementlengder, last);
 
 
 %----- Skriver ut resultat til 'resultat.txt' -----
